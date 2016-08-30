@@ -10,7 +10,7 @@ config = require('config')
 
 local default_settings = {}
 default_settings.displacers = false
-default_settings.sparks = 'Off'
+default_settings.sparks = 'off'
 
 settings = config.load(default_settings)
 
@@ -33,10 +33,12 @@ windower.register_event('addon command', function(command, ...)
         windower.add_to_chat(006, 'sm sparks [off/acheron/darksteel] : Manage sparks item purchasing')
         windower.add_to_chat(006, 'sm help : Shows help message')
     elseif command == 'displacer' or command == 'd' then
-        if params[1]:lower() == 'on' then
-            settings.displacers = true
-        elseif params[1]:lower() == 'off' then
-            settings.displacers = false
+        if params[1] then
+            if params[1]:lower() == 'on' then
+                settings.displacers = true
+            elseif params[1]:lower() == 'off' then
+                settings.displacers = false
+            end
         end
         config.save(settings)
         report_settings()
@@ -62,6 +64,20 @@ windower.register_event('outgoing chunk',function(id,org)
             local choice = org:unpack('I',9)
             if choice == 0 or choice == 0x40000000 then
                 return outstr..string.char(1,0,0x05,0)..org:sub(13)
+            end
+        end
+        if settings.sparks == 'acheron' and L{'Eternal Flame','Rolandienne','Isakoth','Fhelm Jobeizat'}:contains(name) then
+            local outstr = org:sub(1,8)
+            local choice = org:unpack('I',9)
+            if choice == 0 or choice == 0x40000000 then
+                return outstr..string.char(9,0,0x29,0)..org:sub(13) -- Acheron Shield
+            end
+        end
+        if settings.sparks == 'darksteel' and L{'Eternal Flame','Rolandienne','Isakoth','Fhelm Jobeizat'}:contains(name) then
+            local outstr = org:sub(1,8)
+            local choice = org:unpack('I',9)
+            if choice == 0 or choice == 0x40000000 then
+                return outstr..string.char(8,0,0x24,0)..org:sub(13) -- Acheron Shield
             end
         end
     end
