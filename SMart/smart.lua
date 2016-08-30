@@ -1,6 +1,6 @@
 _addon.name = 'S-Mart'
 _addon.author = 'Talym'
-_addon.version = '1.00'
+_addon.version = '1.01'
 _addon.commands = {'sm'}
 
 require 'pack'
@@ -17,9 +17,7 @@ settings = config.load(default_settings)
 function report_settings()
     local disp = ''
     if settings.displacers == true then disp = 'On' else disp = 'Off' end
-
     windower.add_to_chat(006, _addon.name .. ':: Displacers: ' .. disp .. ' | Sparks: ' .. settings.sparks)
-
 end
 
 windower.register_event('addon command', function(command, ...)
@@ -57,29 +55,25 @@ end)
 
 windower.register_event('outgoing chunk',function(id,org)
     if id == 0x5B then
-        local data = org:unpack('I')
+
         local name = (windower.ffxi.get_mob_by_id(org:unpack('I',5)) or {}).name
+
         if settings.displacers == true and L{'Ardrick'}:contains(name) then
-            local outstr = org:sub(1,8)
-            local choice = org:unpack('I',9)
-            if choice == 0 or choice == 0x40000000 then
-                return outstr..string.char(1,0,0x05,0)..org:sub(13)
-            end
-        end
-        if settings.sparks == 'acheron' and L{'Eternal Flame','Rolandienne','Isakoth','Fhelm Jobeizat'}:contains(name) then
-            local outstr = org:sub(1,8)
-            local choice = org:unpack('I',9)
-            if choice == 0 or choice == 0x40000000 then
-                return outstr..string.char(9,0,0x29,0)..org:sub(13) -- Acheron Shield
-            end
-        end
-        if settings.sparks == 'darksteel' and L{'Eternal Flame','Rolandienne','Isakoth','Fhelm Jobeizat'}:contains(name) then
-            local outstr = org:sub(1,8)
-            local choice = org:unpack('I',9)
-            if choice == 0 or choice == 0x40000000 then
-                return outstr..string.char(8,0,0x24,0)..org:sub(13) -- Acheron Shield
+            return menu_packet(org,1,0,0x05,0)
+        elseif L{'Eternal Flame','Rolandienne','Isakoth','Fhelm Jobeizat'}:contains(name) then
+            if settings.sparks == 'acheron' then
+                return menu_packet(org,9,0,0x29,0)
+            elseif settings.sparks == 'darksteel' then
+                return menu_packet(org,8,0,0x24,0)
             end
         end
     end
+end)
+
+function menu_packet(org,a,b,c,d)
+    local outstr = org:sub(1,8)
+    local choice = org:unpack('I',9)
+    if choice == 0 or choice == 0x40000000 then
+        return outstr..string.char(a,b,c,d)..org:sub(13)
+    end
 end
-)
