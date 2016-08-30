@@ -32,7 +32,7 @@ windower.register_event('addon command', function(command, ...)
         windower.add_to_chat(006, 'sm displacer on/off : Manage voidwatch displacer purchasing')
         windower.add_to_chat(006, 'sm sparks [Off/Acheron/Darksteel] : Manage sparks item purchasing')
         windower.add_to_chat(006, 'sm help : Shows help message')
-    elseif command = 'displacer' then
+    elseif command == 'displacer' then
         if params[1] == 'on' then
             settings.displacers = true
         elseif params[1] == 'off' then
