@@ -1,2 +1,5 @@
 # ffxi-addons
-Windower4 Addons for Final Fantasy XI
+Addons for Final Fantasy XI
+
+These addons require Windower 4.
+Use at your own risk!
