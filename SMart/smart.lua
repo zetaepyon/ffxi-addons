@@ -30,13 +30,23 @@ windower.register_event('addon command', function(command, ...)
     if command == 'help' then
         windower.add_to_chat(204, _addon.name .. ' v' .. _addon.version .. '. Author: ' .. _addon.author)
         windower.add_to_chat(006, 'sm displacer on/off : Manage voidwatch displacer purchasing')
-        windower.add_to_chat(006, 'sm sparks [Off/Acheron/Darksteel] : Manage sparks item purchasing')
+        windower.add_to_chat(006, 'sm sparks [off/acheron/darksteel] : Manage sparks item purchasing')
         windower.add_to_chat(006, 'sm help : Shows help message')
-    elseif command == 'displacer' then
-        if params[1] == 'on' then
+    elseif command == 'displacer' or command == 'd' then
+        if params[1]:lower() == 'on' then
             settings.displacers = true
-        elseif params[1] == 'off' then
+        elseif params[1]:lower() == 'off' then
             settings.displacers = false
+        end
+        config.save(settings)
+        report_settings()
+    elseif command == 'sparks' or command == 's' then
+        if params[1] then
+            if L{'off','acheron','darksteel'}:contains(params[1]:lower()) then
+                settings.sparks = params[1]:lower()
+            else
+                windower.add_to_chat(006, 'S-Mart:: Unrecognized sparks item')
+            end
         end
         config.save(settings)
         report_settings()
