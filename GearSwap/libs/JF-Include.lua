@@ -158,6 +158,15 @@ end
 
 -- Called when player's subjob changes
 function sub_job_change(newSub, oldSub)
+    if user_setup then
+        user_setup()
+    end
+
+    if job_sub_job_change then
+        job_sub_job_change(newSub, oldSub)
+    end
+
+    send_command('gs c update')
 end
 
 -- Called when player's status changes (engaged/idle/resting)
