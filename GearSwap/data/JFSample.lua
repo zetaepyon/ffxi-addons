@@ -13,6 +13,11 @@ end
 
 -- Set up user-dependent variables
 function user_setup()
+
+    state.OffenseMode:options('Normal','MidAcc','HighAcc')
+    state.DefenseMode:options('Normal','DT')
+    state.WeaponskillMode:options('Normal','Acc')
+    
 end
 
 -- Define sets and variables used by this job file
