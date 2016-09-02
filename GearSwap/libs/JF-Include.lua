@@ -100,6 +100,17 @@ if not file_unload then
 end
 
 --------------------------------------------------------------------------------
+-- Action Event Handling
+--------------------------------------------------------------------------------
+
+function handle_actions(spell, action)
+
+    -- Initialize eventArgs to allow cancelling
+    local eventArgs = {handled = false, cancel = false}
+
+end
+
+--------------------------------------------------------------------------------
 -- Standard GearSwap action hooks
 --------------------------------------------------------------------------------
 
