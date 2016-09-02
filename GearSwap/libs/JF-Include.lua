@@ -15,6 +15,9 @@ current_jf_include_version = 1
 
 function init_include()
 
+    -- Invlude data mappings
+    include('JF-Mappings')
+
     -- Include for mode-tracking variable class, used for state variables.
     include('Modes')
 
