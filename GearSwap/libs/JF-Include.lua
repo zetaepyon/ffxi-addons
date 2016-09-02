@@ -203,6 +203,20 @@ end
 -- buff == name of buff refreshed
 -- details == player.buff_details table including buff name, id, duration, etc.
 function buff_refresh(buff, details)
+
+    -- Initialize eventArgs
+    local eventArgs = {handled = false}
+
+    -- Allow user-specific buff refresh function
+    if user_buff_refresh then
+        user_buff_refresh(buff, details, eventArgs)
+    end
+
+    -- Allow job-specific buff refresh function
+    if job_buff_refresh and not eventArgs.handled then
+        job_buff_refresh(buff, details, eventArgs)
+    end
+
 end
 
 -- Called when player gains or loses a pet
