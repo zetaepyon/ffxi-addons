@@ -223,9 +223,42 @@ end
 -- pet == name of pet gained or lost
 -- gain == true if pet was gained, false if lost
 function pet_change(pet, gain)
+
+    -- Initialize eventArgs
+    local eventArgs = {handled = false}
+
+    -- Allow user-specific pet change function
+    if user_pet_change then
+        user_pet_change(pet, gain, eventArgs)
+    end
+
+    -- Allow job-specific pet change function
+    if job_pet_change and not eventArgs.handled then
+        job_pet_change(pet, gain, eventArgs)
+    end
+
+    -- Equip default gear if still not handled by user or job
+    if not eventArgs.handled then
+        --handle_equipping_gear(player.status)
+    end
+
 end
 
 -- Called when player's pet's status changes
 -- Also called after pet_change when the pet is released. Avoid automatically handling gear equips.
 function pet_status_change(newStatus, oldStatus)
+
+    -- Initialize eventArgs
+    local eventArgs = {handled = false}
+
+    -- Allow user-specific pet status change function
+    if user_pet_status_change then
+        user_pet_status_change(newStatus, oldStatus, eventArgs)
+    end
+
+    -- Allow job-specific pet status change function
+    if job_pet_status_change and not eventArgs.handled then
+        job_pet_status_change(newStatus, oldStatus, eventArgs)
+    end
+
 end
