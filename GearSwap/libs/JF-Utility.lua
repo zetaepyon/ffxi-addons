@@ -5,7 +5,7 @@
 -- Enhanced keybind, including formatted chatlog output
 function bind(key, cmd, name, hide)
 
-    hide = hide or true
+    hide = hide or nil
 
     send_command('bind ' .. key .. ' ' .. cmd)
     key = key:upper():gsub('%^','Ctrl-'):gsub('%!','Alt-'):gsub('%@','Win-')
