@@ -171,6 +171,25 @@ end
 
 -- Called when player's status changes (engaged/idle/resting)
 function status_change(newStatus, oldStatus)
+
+    -- Initialize eventArgs
+    local eventArgs = {handled = false}
+
+    -- Allow user-specific status change function
+    if user_status_change then
+        user_status_change(newStatus, oldStatus, eventArgs)
+    end
+
+    -- Allow job-specific status change function
+    if job_status_change and not eventArgs.handled then
+        job_status_change(newStatus, oldStatus, eventArgs)
+    end
+
+    -- Equip default gear if still not handled by user or job
+    if not eventArgs.handled then
+        --handle_equipping_gear(newStatus)
+    end
+
 end
 
 -- Called when player gains or loses a buff
