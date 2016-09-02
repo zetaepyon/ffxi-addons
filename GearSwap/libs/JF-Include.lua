@@ -20,7 +20,8 @@ function init_include()
     -- Base for state values
     state = {}
 
-    state.OffenseMode     = M{['description'] = 'OffenseMode'}
+    state.OffenseMode     = M{['description'] = 'Offense Mode'}
+    state.DefenseMode     = M{['description'] = 'Defense Mode'}
     state.WeaponskillMode = M{['description'] = 'Weaponskill Mode'}
     state.CastingMode     = M{['description'] = 'Casting Mode'}
     state.IdleMode        = M{['description'] = 'Idle Mode'}
