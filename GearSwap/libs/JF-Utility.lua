@@ -4,7 +4,7 @@
 
 -- Enhanced keybind, including formatted chatlog output
 function bind(key, cmd, name)
-    send_command('bind' .. key .. ' input '.. cmd)
+    send_command('bind ' .. key .. ' ' .. cmd)
     key = key:upper():gsub('%^','Ctrl-'):gsub('%!','Alt-'):gsub('%@','Win-')
     add_to_chat(210,name..': '..string.color(key,001))
 end
