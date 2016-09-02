@@ -178,6 +178,25 @@ end
 -- gain == true if buff was gained, false if lost
 -- details == player.buff_details table including buff name, id, duration, etc.
 function buff_change(buff, gain, details)
+
+    -- Initialize eventArgs
+    local eventArgs = {handled = false}
+
+    -- Create or set buff state variable based on gain
+    if state.Buff[buff] ~= nil then
+        state.Buff[buff] = gain
+    end
+
+    -- Allow user-specific buff change function
+    if user_buff_change then
+        user_buff_change(buff, gain, details, eventArgs)
+    end
+
+    -- Allow job-specific buff change function
+    if job_buff_change and not eventArgs.handled then
+        job_buff_change(buff, gain, details, eventArgs)
+    end
+
 end
 
 -- Called when player's buff is refreshed
