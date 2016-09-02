@@ -6,5 +6,5 @@
 function bind(key, cmd, name)
     send_command('bind ' .. key .. ' ' .. cmd)
     key = key:upper():gsub('%^','Ctrl-'):gsub('%!','Alt-'):gsub('%@','Win-')
-    add_to_chat(210,name..': '..string.color(key,001))
+    add_to_chat(color.notice,name..': '..string.color(key,color.value))
 end

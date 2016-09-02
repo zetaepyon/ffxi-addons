@@ -33,6 +33,15 @@ function init_include()
 
     state.Buff = {}
 
+    classes = {}
+    classes.SpellMaps = spell_maps
+
+    -- Colors for use in add_to_chat messages
+    color = {}
+    color.error  = 167
+    color.notice = 006
+    color.value  = 001
+
     -- Sub-tables that are expected, avoid defining in each job file
     sets.precast = {}
     sets.precast.FC = {}
