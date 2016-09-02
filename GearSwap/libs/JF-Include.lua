@@ -1,0 +1,10 @@
+--------------------------------------------------------------------------------
+-- Common vars and functions for job scripts, for general default handling
+--
+-- Include this file in the get_sets() function with the command:
+-- include('JF-Include.lua')
+--
+-- IMPORTANT: This include requires supporting include files:
+-- JK-Utility
+--
+--------------------------------------------------------------------------------
