@@ -6,6 +6,7 @@
 --
 -- IMPORTANT: This include requires supporting include files:
 -- JF-Utility
+-- JF-Mappings
 -- JF-Globals
 -- Modes
 --
