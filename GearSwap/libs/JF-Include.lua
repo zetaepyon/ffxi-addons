@@ -16,7 +16,7 @@ current_jf_include_version = 1
 
 function init_include()
 
-    -- Invlude data mappings
+    -- Include data mappings
     include('JF-Mappings')
 
     -- Include for mode-tracking variable class, used for state variables.
@@ -30,6 +30,8 @@ function init_include()
     state.WeaponskillMode = M{['description'] = 'Weaponskill Mode'}
     state.CastingMode     = M{['description'] = 'Casting Mode'}
     state.IdleMode        = M{['description'] = 'Idle Mode'}
+
+    state.Buff = {}
 
     -- Sub-tables that are expected, avoid defining in each job file
     sets.precast = {}
