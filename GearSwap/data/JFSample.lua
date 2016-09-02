@@ -31,7 +31,7 @@ function init_gear_sets()
 
     -- Weaponskill sets
     sets.precast.WS = {}
-    sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
+    sets.precast.WS.Acc = set_combine(sets.precast.WS.Acc, {})
 
     -------------------------
     -- Midcast Sets
