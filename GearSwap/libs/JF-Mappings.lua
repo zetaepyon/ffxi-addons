@@ -1,11 +1,11 @@
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 -- Mappings, lists and sets that describe various game relationships
 -- Modified from Mote-Mappings.lua
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
--------------------------
+----------------------------------------------------------------------------------------------------
 -- Elemental Mappings
--------------------------
+----------------------------------------------------------------------------------------------------
 
 -- Basic elements
 elements = {}
@@ -33,7 +33,9 @@ elements.strong_to = {
     ['Water']='Lightning'}
 
 
-storms = S{"Aurorastorm", "Voidstorm", "Firestorm", "Sandstorm", "Rainstorm", "Windstorm", "Hailstorm", "Thunderstorm"}
+storms = S{"Aurorastorm", "Voidstorm", "Firestorm", "Sandstorm", "Rainstorm", "Windstorm",
+    "Hailstorm", "Thunderstorm"}
+
 elements.storm_of = {
     ['Light']="Aurorastorm",
     ['Dark']="Voidstorm",
@@ -44,7 +46,9 @@ elements.storm_of = {
     ['Ice']="Hailstorm",
     ['Lightning']="Thunderstorm"}
 
-spirits = S{"LightSpirit", "DarkSpirit", "FireSpirit", "EarthSpirit", "WaterSpirit", "AirSpirit", "IceSpirit", "ThunderSpirit"}
+spirits = S{"LightSpirit", "DarkSpirit", "FireSpirit", "EarthSpirit", "WaterSpirit", "AirSpirit",
+    "IceSpirit", "ThunderSpirit"}
+
 elements.spirit_of = {
     ['Light']="Light Spirit",
     ['Dark']="Dark Spirit",
@@ -83,9 +87,9 @@ skillchain_elements.Scission = S{'Earth'}
 skillchain_elements.Impaction = S{'Lightning'}
 skillchain_elements.Reverberation = S{'Water'}
 
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 -- Mappings for weaponskills
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 -- REM weapons and their corresponding weaponskills
 data = {}
@@ -175,10 +179,10 @@ data.weaponskills.ranged = S{
 
 ranged_weaponskills = data.weaponskills.ranged
 
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 -- Spell mappings allow defining a general category or description that each of
 -- sets of related spells all fall under.
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 spell_maps = {
     -- Cure & Curaga
@@ -307,10 +311,10 @@ no_skill_spells_list = S{'Haste', 'Refresh', 'Regen', 'Protect', 'Protectra', 'S
         'Raise', 'Reraise', 'Sneak', 'Invisible', 'Deodorize'}
 
 
--------------------------------------------------------------------------------------------------------------------
--- Tables to specify general area groupings.  Creates the 'areas' table to be referenced in job files.
--- Zone names provided by world.area/world.zone are currently in all-caps, so defining the same way here.
--------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+-- Tables to specify general area groupings.  Creates the areas table to be referenced in job files.
+-- Names provided by world.area/world.zone are currently in all-caps, so defining the same way here.
+----------------------------------------------------------------------------------------------------
 
 areas = {}
 
@@ -366,9 +370,9 @@ areas.Adoulin = S{
 }
 
 
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 -- Lists of certain NPCs.
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 npcs = {}
 npcs.Trust = S{
