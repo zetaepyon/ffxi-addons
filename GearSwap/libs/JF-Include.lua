@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 -- Common vars and functions for job scripts, for general default handling
 --
 -- Include this file in the get_sets() function with the command:
@@ -10,7 +10,7 @@
 -- JF-Globals
 -- Modes
 --
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 current_jf_include_version = 1
 
@@ -114,9 +114,9 @@ if not file_unload then
     end
 end
 
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 -- Action Event Handling
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 function handle_actions(spell, action)
 
@@ -125,14 +125,14 @@ function handle_actions(spell, action)
 
 end
 
---------------------------------------------------------------------------------
--- Standard GearSwap action hooks
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+-- Standard user-initiated GearSwap action hooks
+----------------------------------------------------------------------------------------------------
 
 function pretarget(spell)
 end
 
-function precast(spell)
+function precast(spell, position)
 end
 
 function midcast(spell)
@@ -145,4 +145,41 @@ function pet_midcast(spell)
 end
 
 function pet_aftercast(spell)
+end
+
+
+----------------------------------------------------------------------------------------------------
+-- Additional GearSwap event hooks
+----------------------------------------------------------------------------------------------------
+
+-- Called when player's subjob changes
+function sub_job_change(newSub, oldSub)
+end
+
+-- Called when player's status changes (engaged/idle/resting)
+function status_change(newStatus, oldStatus)
+end
+
+-- Called when player gains or loses a buff
+-- buff == name of buff gained or lost
+-- gain == true if buff was gained, false if lost
+-- details == player.buff_details table including buff name, id, duration, etc.
+function buff_change(buff, gain, details)
+end
+
+-- Called when player's buff is refreshed
+-- buff == name of buff refreshed
+-- details == player.buff_details table including buff name, id, duration, etc.
+function buff_refresh(buff, details)
+end
+
+-- Called when player gains or loses a pet
+-- pet == name of pet gained or lost
+-- gain == true if pet was gained, false if lost
+function pet_change(pet, gain)
+end
+
+-- Called when player's pet's status changes
+-- Also called after pet_change when the pet is released. Avoid automatically handling gear equips.
+function pet_status_change(newStatus, oldStatus)
 end
