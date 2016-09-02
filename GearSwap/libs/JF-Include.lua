@@ -6,6 +6,7 @@
 --
 -- IMPORTANT: This include requires supporting include files:
 -- JF-Utility
+-- JF-Globals
 -- Modes
 --
 --------------------------------------------------------------------------------
@@ -43,9 +44,15 @@ function init_include()
     gear = {}
     gear.default = {}
 
+
+    -- Include general user globals
+    include('JF-Globals')
+
     if define_global_sets then
         define_global_sets()
     end
+
+    (binds_on_unload or global_on_load)()
 
     if job_setup then
         job_setup()
