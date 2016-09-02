@@ -17,7 +17,7 @@ function user_setup()
     state.OffenseMode:options('Normal','MidAcc','HighAcc')
     state.DefenseMode:options('Normal','DT')
     state.WeaponskillMode:options('Normal','Acc')
-    
+
 end
 
 -- Define sets and variables used by this job file
@@ -31,6 +31,7 @@ function init_gear_sets()
 
     -- Weaponskill sets
     sets.precast.WS = {}
+    sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
 
     -------------------------
     -- Midcast Sets
@@ -45,6 +46,30 @@ function init_gear_sets()
     -------------------------
     -- Engaged Sets
     -------------------------
+    sets.engaged = {
+        --main   = "",
+        --sub    = "",
+        --ranged = "",
+        ammo   = "",
+        head   = "",
+        neck   = "",
+        lear   = "",
+        rear   = "",
+        body   = "",
+        hands  = "",
+        lring  = "",
+        rring  = "",
+        back   = "",
+        waist  = "",
+        legs   = "",
+        feet   = ""
+        }
+
+    sets.engaged.MidAcc = {}
+    sets.engaged.MidAcc.DT = set_combine(sets.engaged.MidAcc, {})
+
+    sets.engaged.HighAcc = {}
+    sets.engaged.HighAcc.DT = set_combine(sets.engaged.HighAcc, {})
 
 end
 
