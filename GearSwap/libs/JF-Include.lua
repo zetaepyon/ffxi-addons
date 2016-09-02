@@ -61,6 +61,8 @@ function init_include()
     gear.legs = {}
     gear.feet = {}
 
+    -- Include various utility functions
+    include('JF-Utility')
 
     -- Include general user globals
     include('JF-Globals')
