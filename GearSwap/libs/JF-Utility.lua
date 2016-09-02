@@ -3,8 +3,10 @@
 --------------------------------------------------------------------------------
 
 -- Enhanced keybind, including formatted chatlog output
-function bind(key, cmd, name)
+function bind(key, cmd, name, disp)
     send_command('bind ' .. key .. ' ' .. cmd)
     key = key:upper():gsub('%^','Ctrl-'):gsub('%!','Alt-'):gsub('%@','Win-')
-    add_to_chat(color.notice,name..': '..string.color(key,color.value))
+    if not disp then
+        add_to_chat(color.notice,name..': '..string.color(key,color.value))
+    end
 end
