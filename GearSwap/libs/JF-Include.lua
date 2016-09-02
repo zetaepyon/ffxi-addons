@@ -82,16 +82,20 @@ function init_include()
     -- Include general user globals
     include('JF-Globals')
 
+    -- Define any additional sets from *-globals.lua
     if define_global_sets then
         define_global_sets()
     end
 
-    (binds_on_unload or global_on_load)()
+    -- Global default binds from JF-Globals or user-globals
+    (binds_on_load or global_on_load)()
 
+    -- Job-specific variable initialization and setup
     if job_setup then
         job_setup()
     end
 
+    -- User-specific variable initialization and setup
     if user_setup then
         user_setup()
     end
