@@ -27,6 +27,7 @@ function init_include()
     state.CastingMode     = M{['description'] = 'Casting Mode'}
     state.IdleMode        = M{['description'] = 'Idle Mode'}
 
+    -- Sub-tables that are expected, avoid defining in each job file
     sets.precast = {}
     sets.precast.FC = {}
     sets.precast.JA = {}
@@ -41,8 +42,24 @@ function init_include()
     sets.defense = {}
     sets.buff = {}
 
+    -- Sub-tables for gear slots
+    -- Useful for briefly defining heavily augmented gear in multiple sets
     gear = {}
     gear.default = {}
+    gear.main = {}
+    gear.sub = {}
+    gear.ranged = {}
+    gear.ammo = {}
+    gear.head = {}
+    gear.neck = {}
+    gear.ear = {}
+    gear.body = {}
+    gear.hands = {}
+    gear.ring = {}
+    gear.back = {}
+    gear.waist = {}
+    gear.legs = {}
+    gear.feet = {}
 
 
     -- Include general user globals
