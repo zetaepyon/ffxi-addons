@@ -105,7 +105,7 @@ function init_include()
 end
 
 if not jf_include_version or jf_include_version < current_jf_include_version then
-    add_to_chat(color.error, 'Warning: Your job file is out of date. Update to the latest baseline.')
+    add_to_chat(167, 'Warning: Your job file is out of date. Update to the latest baseline.')
     return
 end
 
