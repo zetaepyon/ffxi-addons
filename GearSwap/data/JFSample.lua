@@ -42,3 +42,15 @@ function init_gear_sets()
     -------------------------
 
 end
+
+function job_precast(spell, action, spellMap, eventArgs)
+end
+
+function job_post_midcast(spell, action, spellmap, eventArgs)
+end
+
+function job_state_change(stateField, newValue, oldValue)
+end
+
+function job_get_spell_map(spell, default_spell_map)
+end
