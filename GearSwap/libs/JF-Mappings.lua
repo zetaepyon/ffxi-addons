@@ -276,7 +276,7 @@ spell_maps = {
 
     -- Banish(ga) & Holy
     ['Banish']='Banish', ['Banish II']='Banish', ['Banish III']='Banish',
-    []'Banishga']='Banish', ['Banishga II']='Banish', ['Holy']='Holy', ['Holy II']='Holy',
+    ['Banishga']='Banish', ['Banishga II']='Banish', ['Holy']='Holy', ['Holy II']='Holy',
 
     -- Draspir
     ['Drain']='Drain', ['Drain II']='Drain', ['Aspir']='Aspir', ['Aspir II']='Aspir',
