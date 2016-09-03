@@ -132,6 +132,9 @@ function handle_actions(spell, action, position)
     -- Initialize eventArgs to allow cancelling
     local eventArgs = {handled = false, cancel = false}
 
+    -- Get current spell mapping
+    local spellMap = get_spell_map(spell)
+
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -299,4 +302,25 @@ function pet_status_change(newStatus, oldStatus)
         job_pet_status_change(newStatus, oldStatus, eventArgs)
     end
 
+end
+
+----------------------------------------------------------------------------------------------------
+-- Utility functions required to construct gear sets
+----------------------------------------------------------------------------------------------------
+
+-- Get the mapping for a spell
+function get_spell_map(spell)
+
+    -- Get default spell mapping from classes variable
+    local defaultSpellMap = classes.SpellMaps[spell.english]
+    local jobSpellMap
+
+    -- If job-specific override exists, call that function
+    if job_get_spell_map then
+        jobSpellMap = job_get_spell_map(spell, defaultSpellMap)
+    end
+
+    -- Return job-specific mapping or default mapping
+    return jobSpellMap or defaultSpellMap
+    
 end
