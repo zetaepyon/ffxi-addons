@@ -139,6 +139,7 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function pretarget(spell)
+    handle_actions(spell, 'pretarget')
 end
 
 function precast(spell, position)
