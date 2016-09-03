@@ -33,7 +33,9 @@ function init_include()
 
     state.Buff = {}
 
+    -- Define general classes
     classes = {}
+    -- Basic spell mappings based on common spell series (from JF-Mappings)
     classes.SpellMaps = spell_maps
 
     -- Colors for use in add_to_chat messages
@@ -322,5 +324,5 @@ function get_spell_map(spell)
 
     -- Return job-specific mapping or default mapping
     return jobSpellMap or defaultSpellMap
-    
+
 end
