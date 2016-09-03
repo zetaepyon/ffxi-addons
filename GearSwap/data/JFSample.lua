@@ -1,4 +1,9 @@
--- Initialization function
+----------------------------------------------------------------------------------------------------
+-- Sample Job Script
+-- For use with JobFramework (JF-Include)
+----------------------------------------------------------------------------------------------------
+
+-- Base initialization function
 function get_sets()
     jf_include_version = 1
 
