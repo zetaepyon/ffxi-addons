@@ -127,7 +127,7 @@ end
 -- Action Event Handling
 ----------------------------------------------------------------------------------------------------
 
-function handle_actions(spell, action)
+function handle_actions(spell, action, position)
 
     -- Initialize eventArgs to allow cancelling
     local eventArgs = {handled = false, cancel = false}
@@ -143,18 +143,31 @@ function pretarget(spell)
 end
 
 function precast(spell, position)
+    -- Create buff state variable if appropriate
+    if state.Buff[spell.english] ~= nil then
+        state.Buff[spell.english] = true
+    end
+    handle_actions(spell, 'precast', position)
 end
 
 function midcast(spell)
+    handle_actions(spell, 'midcast')
 end
 
 function aftercast(spell)
+    -- Set buff state variable as appropriate
+    if state.Buff[spell.english] ~= nil then
+        state.Buff[spell.english] = not spell.interrupted or buffactive[spell.english] or false
+    end
+    handle_actions(spell, 'aftercast')
 end
 
 function pet_midcast(spell)
+    handle_actions(spell, 'pet_midcast')
 end
 
 function pet_aftercast(spell)
+    handle_actions(spell, 'pet_aftercast')
 end
 
 
