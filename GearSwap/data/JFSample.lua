@@ -12,12 +12,8 @@ function get_sets()
 
 end
 
--- Set up user-independent variables
-function job_setup()
-end
-
--- Set up user-dependent variables
-function user_setup()
+-- Set up customized variables
+function custom_setup()
 
     state.OffenseMode:options('Normal','MidAcc','HighAcc')
     state.DefenseMode:options('Normal','DT')
@@ -78,14 +74,14 @@ function init_gear_sets()
 
 end
 
-function job_precast(spell, action, spellMap, eventArgs)
+function custom_precast(spell, action, spellMap, eventArgs, position)
 end
 
-function job_post_midcast(spell, action, spellmap, eventArgs)
+function custom_post_midcast(spell, action, spellmap, eventArgs)
 end
 
-function job_state_change(stateField, newValue, oldValue)
+function custom_state_change(stateField, newValue, oldValue)
 end
 
-function job_get_spell_map(spell, default_spell_map)
+function custom_get_spell_map(spell, default_spell_map)
 end
