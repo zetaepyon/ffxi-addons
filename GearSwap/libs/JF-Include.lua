@@ -137,6 +137,36 @@ function handle_actions(spell, action, position)
     -- Get current spell mapping
     local spellMap = get_spell_map(spell)
 
+    -- User-specific handling
+    if _G['user_'..action] then
+        _G['user_'..action](spell, action, spellMap, eventArgs, position)
+    end
+
+    -- Job-specific handling
+    if not eventArgs.cancel and not eventArgs.handled and _G['job_'..action] then
+        _G['job_'..action](spell, action, spellMap, eventArgs, position)
+    end
+
+    -- Default handling
+    if not eventArgs.cancel and not eventArgs.handled and _G['default_'..action] then
+        _G['default_'..action](spell, spellMap, position)
+    end
+
+    -- User-specific post-handling
+    if not eventArgs.cancel and _G['user_post_'..action] then
+        _G['user_post_'..action](spell, action, spellMap, eventArgs, position)
+    end
+
+    -- Job-specific post-handling
+    if not eventArgs.cancel and _G['job_post_'..action] then
+        _G['job_post_'..action](spell, action, spellMap, eventArgs, position)
+    end
+
+    -- Final cleanup
+    if _G['cleanup_'..action] then
+        _G['cleanup_'..action](spell, spellMap, eventArgs, position)
+    end
+
 end
 
 ----------------------------------------------------------------------------------------------------
