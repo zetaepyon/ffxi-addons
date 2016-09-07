@@ -228,7 +228,7 @@ end
 function default_pretarget(spell, spellMap)
 end
 
-function default_precast(spell, spellMap)
+function default_precast(spell, spellMap, position)
 end
 
 function default_midcast(spell, spellMap)
@@ -243,6 +243,27 @@ end
 function default_pet_aftercast(spell, spellMap)
 end
 
+----------------------------------------------------------------------------------------------------
+-- Action filters
+----------------------------------------------------------------------------------------------------
+
+function filter_pretarget(spell, spellMap, eventArgs)
+end
+
+function filter_precast(spell, spellMap, eventArgs, position)
+end
+
+function filter_midcast(spell, spellMap, eventArgs)
+end
+
+function filter_aftercast(spell, spellMap, eventArgs)
+end
+
+function filter_pet_midcast(spell, spellMap, eventArgs)
+end
+
+function filter_pet_aftercast(spell, spellMap, eventArgs)
+end
 
 ----------------------------------------------------------------------------------------------------
 -- Additional GearSwap event hooks
