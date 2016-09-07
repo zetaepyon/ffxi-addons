@@ -350,7 +350,7 @@ function party_buff_change(member, buff, gain, details)
     end
 
     -- Allow job-specific buff change function
-    if job_buff_change and not eventArgs.handled then
+    if job_party_buff_change and not eventArgs.handled then
         job_party_buff_change(member, buff, gain, details, eventArgs)
     end
 
