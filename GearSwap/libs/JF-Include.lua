@@ -137,34 +137,49 @@ function handle_actions(spell, action, position)
     -- Get current spell mapping
     local spellMap = get_spell_map(spell)
 
-    -- User-specific handling
-    if _G['user_'..action] then
-        _G['user_'..action](spell, action, spellMap, eventArgs, position)
+
+    -- High level filtering
+    if _G['filter_'..action] then
+        _G['filter_'..action](spell, spellMap, eventArgs, position)
     end
 
-    -- Job-specific handling
-    if not eventArgs.cancel and not eventArgs.handled and _G['job_'..action] then
-        _G['job_'..action](spell, action, spellMap, eventArgs, position)
-    end
+    -- Process if not filtered
+    if not eventArgs.cancel then
 
-    -- Default handling
-    if not eventArgs.cancel and not eventArgs.handled and _G['default_'..action] then
-        _G['default_'..action](spell, spellMap, position)
-    end
+        -- User-specific handling
+        if _G['user_'..action] then
+            _G['user_'..action](spell, action, spellMap, eventArgs, position)
 
-    -- User-specific post-handling
-    if not eventArgs.cancel and _G['user_post_'..action] then
-        _G['user_post_'..action](spell, action, spellMap, eventArgs, position)
-    end
+            if eventArgs.cancel then cancel_spell() end
+        end
 
-    -- Job-specific post-handling
-    if not eventArgs.cancel and _G['job_post_'..action] then
-        _G['job_post_'..action](spell, action, spellMap, eventArgs, position)
-    end
+        -- Job-specific handling
+        if not eventArgs.cancel and not eventArgs.handled and _G['job_'..action] then
+            _G['job_'..action](spell, action, spellMap, eventArgs, position)
 
-    -- Final cleanup
-    if _G['cleanup_'..action] then
-        _G['cleanup_'..action](spell, spellMap, eventArgs, position)
+            if eventArgs.cancel then cancel_spell() end
+        end
+
+        -- Default handling
+        if not eventArgs.cancel and not eventArgs.handled and _G['default_'..action] then
+            _G['default_'..action](spell, spellMap, position)
+        end
+
+        -- User-specific post-handling
+        if not eventArgs.cancel and _G['user_post_'..action] then
+            _G['user_post_'..action](spell, action, spellMap, eventArgs, position)
+        end
+
+        -- Job-specific post-handling
+        if not eventArgs.cancel and _G['job_post_'..action] then
+            _G['job_post_'..action](spell, action, spellMap, eventArgs, position)
+        end
+
+        -- Final cleanup
+        if _G['cleanup_'..action] then
+            _G['cleanup_'..action](spell, spellMap, eventArgs, position)
+        end
+
     end
 
 end
