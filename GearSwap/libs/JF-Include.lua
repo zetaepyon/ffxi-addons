@@ -92,14 +92,9 @@ function init_include()
     -- Global default binds from JF-Globals or user-globals
     (binds_on_load or global_on_load)()
 
-    -- Job-specific variable initialization and setup
-    if job_setup then
-        job_setup()
-    end
-
-    -- User-specific variable initialization and setup
-    if user_setup then
-        user_setup()
+    -- Customized variable initialization and setup
+    if custom_setup then
+        custom_setup()
     end
 
     init_gear_sets()
@@ -116,10 +111,8 @@ init_include()
 
 if not file_unload then
     file_unload = function()
-        if user_unload then
-            user_unload()
-        elseif job_file_unload then
-            job_file_unload()
+        if custom_unload then
+            custom_unload()
         end
         _G[(binds_on_unload and 'binds_on_unload') or 'global_on_unload']()
     end
@@ -146,16 +139,9 @@ function handle_actions(spell, action, position)
     -- Process if not filtered
     if not eventArgs.cancel then
 
-        -- User-specific handling
-        if _G['user_'..action] then
-            _G['user_'..action](spell, action, spellMap, eventArgs, position)
-
-            if eventArgs.cancel then cancel_spell() end
-        end
-
-        -- Job-specific handling
-        if not eventArgs.cancel and not eventArgs.handled and _G['job_'..action] then
-            _G['job_'..action](spell, action, spellMap, eventArgs, position)
+        -- Customized handling
+        if _G['custom_'..action] then
+            _G['custom_'..action](spell, action, spellMap, eventArgs, position)
 
             if eventArgs.cancel then cancel_spell() end
         end
@@ -165,14 +151,9 @@ function handle_actions(spell, action, position)
             _G['default_'..action](spell, spellMap, position)
         end
 
-        -- User-specific post-handling
-        if not eventArgs.cancel and _G['user_post_'..action] then
-            _G['user_post_'..action](spell, action, spellMap, eventArgs, position)
-        end
-
-        -- Job-specific post-handling
-        if not eventArgs.cancel and _G['job_post_'..action] then
-            _G['job_post_'..action](spell, action, spellMap, eventArgs, position)
+        -- Customized post-handling
+        if not eventArgs.cancel and _G['custom_post_'..action] then
+            _G['custom_post_'..action](spell, action, spellMap, eventArgs, position)
         end
 
         -- Final cleanup
@@ -288,14 +269,9 @@ function status_change(newStatus, oldStatus)
     -- Initialize eventArgs
     local eventArgs = {handled = false}
 
-    -- Allow user-specific status change function
-    if user_status_change then
-        user_status_change(newStatus, oldStatus, eventArgs)
-    end
-
-    -- Allow job-specific status change function
-    if job_status_change and not eventArgs.handled then
-        job_status_change(newStatus, oldStatus, eventArgs)
+    -- Allow customized status change function
+    if custom_status_change then
+        custom_status_change(newStatus, oldStatus, eventArgs)
     end
 
     -- Equip default gear if still not handled by user or job
@@ -319,14 +295,9 @@ function buff_change(buff, gain, details)
         state.Buff[buff] = gain
     end
 
-    -- Allow user-specific buff change function
-    if user_buff_change then
-        user_buff_change(buff, gain, details, eventArgs)
-    end
-
-    -- Allow job-specific buff change function
-    if job_buff_change and not eventArgs.handled then
-        job_buff_change(buff, gain, details, eventArgs)
+    -- Allow customized buff change function
+    if custom_buff_change then
+        custom_buff_change(buff, gain, details, eventArgs)
     end
 
 end
@@ -339,14 +310,9 @@ function buff_refresh(buff, details)
     -- Initialize eventArgs
     local eventArgs = {handled = false}
 
-    -- Allow user-specific buff refresh function
-    if user_buff_refresh then
-        user_buff_refresh(buff, details, eventArgs)
-    end
-
-    -- Allow job-specific buff refresh function
-    if job_buff_refresh and not eventArgs.handled then
-        job_buff_refresh(buff, details, eventArgs)
+    -- Allow customized buff refresh function
+    if custom_buff_refresh then
+        custom_buff_refresh(buff, details, eventArgs)
     end
 
 end
@@ -365,14 +331,9 @@ function party_buff_change(member, buff, gain, details)
         state.Buff[buff] = gain
     end
 
-    -- Allow user-specific buff change function
-    if user_party_buff_change then
-        user_party_buff_change(member, buff, gain, details, eventArgs)
-    end
-
-    -- Allow job-specific buff change function
-    if job_party_buff_change and not eventArgs.handled then
-        job_party_buff_change(member, buff, gain, details, eventArgs)
+    -- Allow customized buff change function
+    if custom_party_buff_change then
+        custom_party_buff_change(member, buff, gain, details, eventArgs)
     end
 
 end
@@ -385,14 +346,9 @@ function pet_change(pet, gain)
     -- Initialize eventArgs
     local eventArgs = {handled = false}
 
-    -- Allow user-specific pet change function
-    if user_pet_change then
-        user_pet_change(pet, gain, eventArgs)
-    end
-
-    -- Allow job-specific pet change function
-    if job_pet_change and not eventArgs.handled then
-        job_pet_change(pet, gain, eventArgs)
+    -- Allow customized pet change function
+    if custom_pet_change then
+        custom_pet_change(pet, gain, eventArgs)
     end
 
     -- Equip default gear if still not handled by user or job
@@ -409,14 +365,9 @@ function pet_status_change(newStatus, oldStatus)
     -- Initialize eventArgs
     local eventArgs = {handled = false}
 
-    -- Allow user-specific pet status change function
-    if user_pet_status_change then
-        user_pet_status_change(newStatus, oldStatus, eventArgs)
-    end
-
-    -- Allow job-specific pet status change function
-    if job_pet_status_change and not eventArgs.handled then
-        job_pet_status_change(newStatus, oldStatus, eventArgs)
+    -- Allow customized pet status change function
+    if custom_pet_status_change then
+        custom_pet_status_change(newStatus, oldStatus, eventArgs)
     end
 
 end
@@ -430,14 +381,14 @@ function get_spell_map(spell)
 
     -- Get default spell mapping from classes variable
     local defaultSpellMap = classes.SpellMaps[spell.english]
-    local jobSpellMap
+    local customSpellMap
 
-    -- If job-specific override exists, call that function
-    if job_get_spell_map then
-        jobSpellMap = job_get_spell_map(spell, defaultSpellMap)
+    -- If customized override exists, call that function
+    if custom_get_spell_map then
+        customSpellMap = custom_get_spell_map(spell, defaultSpellMap)
     end
 
     -- Return job-specific mapping or default mapping
-    return jobSpellMap or defaultSpellMap
+    return customSpellMap or defaultSpellMap
 
 end
