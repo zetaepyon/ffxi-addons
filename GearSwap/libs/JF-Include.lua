@@ -222,6 +222,29 @@ end
 
 
 ----------------------------------------------------------------------------------------------------
+-- Default action code
+----------------------------------------------------------------------------------------------------
+
+function default_pretarget(spell, spellMap)
+end
+
+function default_precast(spell, spellMap)
+end
+
+function default_midcast(spell, spellMap)
+end
+
+function default_aftercast(spell, spellMap)
+end
+
+function default_pet_midcast(spell, spellMap)
+end
+
+function default_pet_aftercast(spell, spellMap)
+end
+
+
+----------------------------------------------------------------------------------------------------
 -- Additional GearSwap event hooks
 ----------------------------------------------------------------------------------------------------
 
