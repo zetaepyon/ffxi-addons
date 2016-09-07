@@ -330,6 +330,32 @@ function buff_refresh(buff, details)
 
 end
 
+-- Called when party member gains or loses a buff
+-- buff == name of buff gained or lost
+-- gain == true if buff was gained, false if lost
+-- details == buff_details table including buff name, id, duration, etc.
+function party_buff_change(member, buff, gain, details)
+
+    -- Initialize eventArgs
+    local eventArgs = {handled = false}
+
+    -- Create or set buff state variable based on gain
+    if state.Buff[buff] ~= nil then
+        state.Buff[buff] = gain
+    end
+
+    -- Allow user-specific buff change function
+    if user_party_buff_change then
+        user_party_buff_change(member, buff, gain, details, eventArgs)
+    end
+
+    -- Allow job-specific buff change function
+    if job_buff_change and not eventArgs.handled then
+        job_party_buff_change(member, buff, gain, details, eventArgs)
+    end
+
+end
+
 -- Called when player gains or loses a pet
 -- pet == name of pet gained or lost
 -- gain == true if pet was gained, false if lost
