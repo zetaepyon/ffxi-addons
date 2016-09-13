@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 ----------------------------------------------------------------------------------------------------
 -- Monitor action packet
 -- Watches action packets for spell/blood pact completion and sets haste_type variable
 ----------------------------------------------------------------------------------------------------
-=======
->>>>>>> 612ec69... Initial commit - raw_register_event
 windower.raw_register_event('incoming chunk', function(id, data)
 
     if id == 0x028 then
@@ -14,7 +11,6 @@ windower.raw_register_event('incoming chunk', function(id, data)
         local cat = action:get_category_string()
         local spell = action:get_spell()
 
-<<<<<<< HEAD
         local hastes = {
             [57]  = 15, -- Haste
             [385] = 15, -- Hastega (Spell)
@@ -26,12 +22,6 @@ windower.raw_register_event('incoming chunk', function(id, data)
         }
 
         if S{'spell_finish','avatar_tp_finish'}:contains(cat) and hastes[spell.id] then
-=======
-        -- Haste, Hastega (Spell), Refueling, Hastega (BP), Haste II, Hastega II, Erratic Flutter
-        local hastes = S{57,385,530,595,511,602,710}
-
-        if S{'spell_finish','avatar_tp_finish'}:contains(cat) and hastes:contains(spell.id) then
->>>>>>> 612ec69... Initial commit - raw_register_event
 
             for target in action:get_targets() do
 
@@ -41,23 +31,12 @@ windower.raw_register_event('incoming chunk', function(id, data)
                 for act in target:get_actions() do act_info = act:get_basic_info() end
 
                 if target_name == player.name and act_info.param == 33 then
-<<<<<<< HEAD
                     haste_type = hastes[spell.id]
-=======
-                    if S{511,602,710}:contains(spell.id) then
-                        haste_type = 30
-                    elseif S{530}:contains(spell.id) then
-                        haste_type = 10
-                    else
-                        haste_type = 15
-                    end
->>>>>>> 612ec69... Initial commit - raw_register_event
                 end
             end
         end
     end
 end)
-<<<<<<< HEAD
 
 ----------------------------------------------------------------------------------------------------
 -- Calculate total haste
@@ -151,5 +130,3 @@ function calc_delay_reduction(haste, dualwield)
     return reduction
 
 end
-=======
->>>>>>> 612ec69... Initial commit - raw_register_event
