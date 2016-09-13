@@ -31,7 +31,7 @@ windower.raw_register_event('incoming chunk', function(id, data)
                 for act in target:get_actions() do act_info = act:get_basic_info() end
 
                 if target_name == player.name and act_info.param == 33 then
-                    hastes = haste_vals[spell.id]
+                    haste_type = hastes[spell.id]
                 end
             end
         end
