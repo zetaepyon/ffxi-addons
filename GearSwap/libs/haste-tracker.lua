@@ -1,3 +1,7 @@
+----------------------------------------------------------------------------------------------------
+-- Monitor action packet
+-- Watches action packets for spell/blood pact completion and sets haste_type variable
+----------------------------------------------------------------------------------------------------
 windower.raw_register_event('incoming chunk', function(id, data)
 
     if id == 0x028 then
