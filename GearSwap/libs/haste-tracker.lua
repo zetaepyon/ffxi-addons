@@ -35,6 +35,7 @@ end)
 
 ----------------------------------------------------------------------------------------------------
 -- Calculate total haste
+-- Calculates total amount of haste based on magic, job abilities, and equipment
 ----------------------------------------------------------------------------------------------------
 -- returns  haste.total     Total combined haste (Cap 80%)
 --          haste.ma        Magic haste (Cap 43.75%)
@@ -96,5 +97,31 @@ function calc_haste()
     if state.TotalHaste then state.TotalHaste = haste.total end
 
     return haste.total, haste.ma, haste.ja, haste.eq
+
+end
+
+----------------------------------------------------------------------------------------------------
+-- Calculate delay reduction
+-- Calculates overall delay reduction based on amount of dual wield and haste
+----------------------------------------------------------------------------------------------------
+-- requires haste       Total haste (e.g. from calc_haste) to use for calculation
+-- optional dualwield   Amount of dual wield to use for calculation
+--
+-- returns  reduction   Total delay reduction, including specified haste
+----------------------------------------------------------------------------------------------------
+function calc_delay_reduction(haste, dualwield)
+
+    local percentages = {0.10, 0.15, 0.25, 0.30, 0.35} -- Dual wield reduction tiers
+    local dw = percentages[(state.DualWield or dualwield or 0)] or 0
+    local delay = (1 - dw) * (1 - haste/100)
+    local reduction = (1 - delay) * 100
+
+    if reduction > 80 then reduction = 80.0 end
+    --reduction = math.round(reduction,2)
+
+    -- Update state variable, if it exists
+    if state.DelayReduction then state.DelayReduction = reduction end
+
+    return reduction
 
 end
