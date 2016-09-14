@@ -10,8 +10,12 @@ windower.raw_register_event('incoming chunk', function(id, data)
         local action = gearswap.ActionPacket.new(act)
         local cat = action:get_category_string()
         local spell = action:get_spell()
+        local actor = action:get_id()
 
-        local hastes = {
+        local allies = T{}
+        for i=1,party.count do allies:append(party[i].mob.id) end
+
+        local hastes = T{
             [57]  = 15, -- Haste
             [385] = 15, -- Hastega (Spell)
             [511] = 30, -- Haste II
@@ -21,18 +25,16 @@ windower.raw_register_event('incoming chunk', function(id, data)
             [710] = 30  -- Erratic Flutter
         }
 
-        if S{'spell_finish','avatar_tp_finish'}:contains(cat) and hastes[spell.id] then
+        local haste_spell = spell and hastes:containskey(spell.id) or false
+
+        if S{'spell_finish','avatar_tp_finish'}:contains(cat) and haste_spell then
+        --if ((cat == 'spell_finish' and allies:contains(actor)) or cat == 'avatar_tp_finish') and hastes[spell.id] then
 
             for target in action:get_targets() do
 
                 local target_name = target:get_name()
-                local act_info
+                if target_name == player.name then haste_type = hastes[spell.id] end
 
-                for act in target:get_actions() do act_info = act:get_basic_info() end
-
-                if target_name == player.name and act_info.param == 33 then
-                    haste_type = hastes[spell.id]
-                end
             end
         end
     end
