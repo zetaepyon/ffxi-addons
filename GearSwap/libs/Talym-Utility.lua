@@ -47,3 +47,49 @@ function random_lockstyle(...)
     send_command('wait '..wait_time..'; input /lockstyleset '..choice)
 
 end
+
+----------------------------------------------------------------------------------------------------
+-- Automatic spell/ability fallback
+----------------------------------------------------------------------------------------------------
+-- required     spell           Spell passed through from the precast function
+-- optional     fallback_table  T{} table of fallback pairings. Default: classes.AutoFallback
+-- optional     display         Display fallback operations in log. Default: false
+--
+-- EXAMPLE
+-- get_sets()
+--     classes.NukeFallback = T{["Fire V"]="Fire IV", ["Fire IV"]="Fire III"}
+--     ...
+-- end
+--
+-- precast()
+--     if spell.skill=="Elemental Magic" then auto_fallback(spell,classes.NukeFallback) end
+--     ...
+-- end
+----------------------------------------------------------------------------------------------------
+function auto_fallback(...)
+
+    local args = {...}
+    local spell = args[1]
+    local fallback_table = args[2] or classes.AutoFallback or T{}
+    local display = args[3] or false
+
+    if fallback_table:containskey(spell.english) then
+
+        local recast_time = windower.ffxi.get_ability_recasts()[spell.recast_id] or windower.ffxi.get_spell_recasts()[spell.recast_id]
+        local function change_spell(reason)
+            local new_spell = fallback_table[spell.english]
+            cancel_spell()
+            send_command('//'..new_spell..' '..spell.target.raw)
+            if display then windower.add_to_chat(001,string.format("FB :: %s > %s [%s]",string.color(spell.english,167),string.color(new_spell,204),string.color(reason,021))) end
+        end
+
+        if recast_time > 0 then
+            change_spell("Recast Timer")
+        elseif spell.mp_cost > player.mp then
+            change_spell("Insufficient MP")
+        elseif spell.type == 'JobAbility' and buffactive[spell.english] then
+            change_spell("Ability Buff Active")
+        end
+
+    end
+end
