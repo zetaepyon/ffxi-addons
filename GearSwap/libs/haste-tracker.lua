@@ -10,6 +10,7 @@ windower.raw_register_event('incoming chunk', function(id, data)
         local action = gearswap.ActionPacket.new(act)
         local cat = action:get_category_string()
         local spell = action:get_spell()
+
         local actor = action:get_id()
 
         local allies = T{}
@@ -30,6 +31,7 @@ windower.raw_register_event('incoming chunk', function(id, data)
 
         if S{'spell_finish','avatar_tp_finish'}:contains(cat) and haste_spell then
         --if ((cat == 'spell_finish' and allies:contains(actor)) or cat == 'avatar_tp_finish') and hastes[spell.id] then
+
 
             for target in action:get_targets() do
 
@@ -76,6 +78,7 @@ function calc_haste()
     -- Add in optional equipment haste state up to 25%
     --haste.eq = state.EquipmentHaste or 0
     haste.eq = calc_gear_stat('haste') or 0
+
     if haste.eq > 25 then haste.eq = 25 end
 
     -- Calculate magic haste up to 43.75%

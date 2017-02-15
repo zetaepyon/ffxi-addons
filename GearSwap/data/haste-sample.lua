@@ -28,6 +28,7 @@ function user_setup()
     state.TotalHaste = 0
     --state.DualWield = 5
 
+
     include('JF-GearStats.lua')
     data.gear_stats['Samnuha Coat'].dual_wield = 3 -- Example override for augmented gear
 
