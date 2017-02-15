@@ -24,10 +24,13 @@ function user_setup()
     --state.HonorMarch = 15
     --state.IndiHaste = 40
     --state.GeoHaste = 40
-    state.EquipmentHaste = 25  -- Assumed value of equipment haste
     state.DelayReduction = 0
     state.TotalHaste = 0
     --state.DualWield = 5
+
+
+    include('JF-GearStats.lua')
+    data.gear_stats['Samnuha Coat'].dual_wield = 3 -- Example override for augmented gear
 
 end
 
